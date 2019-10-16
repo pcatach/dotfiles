@@ -1,7 +1,7 @@
 (package-initialize)
 
 ;; packages
-(setq package-list '(ido flycheck-mypy neotree elpy atom-dark-theme guru-mode))
+(setq package-list '(ido flycheck-mypy neotree elpy atom-dark-theme guru-mode ace-window))
 (setq package-check-signature nil)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
@@ -130,11 +130,11 @@ F5 again will unset 'selective-display' by setting it to 0."
       (split-window-vertically (floor (* 0.75 (window-height))))
       (other-window 1)
       (add-hook 'term-mode-hook
-		(lambda ()
-		  ;; C-x is the prefix command, rather than C-c
-		  (term-set-escape-char ?\C-x)))
+      		(lambda ()
+      		  ;; C-x is the prefix command, rather than C-c
+      		  (term-set-escape-char ?\C-x)))
       (term "/bin/bash")
-      (other-window 1)
       (set-window-dedicated-p (selected-window) t)
+      (other-window 2)
       (setq term-is-on t)
      ))
