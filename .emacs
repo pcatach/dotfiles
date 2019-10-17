@@ -8,6 +8,7 @@
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (unless package-archive-contents
   (package-refresh-contents))
+
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package))
@@ -50,10 +51,10 @@ F5 again will unset 'selective-display' by setting it to 0."
   
 ;; emacs customizations
 (setq default-directory (get-default-directory))
-(message default-directory)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(show-paren-mode 1)
 (tooltip-mode -1)
 (global-hl-line-mode 1)
 (add-hook 'text-mode-hook 'linum-mode)
@@ -89,9 +90,16 @@ F5 again will unset 'selective-display' by setting it to 0."
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 (global-set-key (kbd "C-;") 'fold-code)
+(global-set-key (kbd "M-p") 'scroll-down)
+(global-set-key (kbd "M-n") 'scroll-up)
 
 ;; ido mode
 (ido-mode t)
+
+;; cua-mode
+(cua-mode t)
+(transient-mark-mode 1)
+(setq cua-keep-region-after-copy t)
 
 ;; guru mode
 (add-hook 'prog-mode-hook 'guru-mode)
@@ -129,11 +137,7 @@ F5 again will unset 'selective-display' by setting it to 0."
       (other-window 1)
       (split-window-vertically (floor (* 0.75 (window-height))))
       (other-window 1)
-      (add-hook 'term-mode-hook
-      		(lambda ()
-      		  ;; C-x is the prefix command, rather than C-c
-      		  (term-set-escape-char ?\C-x)))
-      (term "/bin/bash")
+      (ansi-term "/bin/bash")
       (set-window-dedicated-p (selected-window) t)
       (other-window 2)
       (setq term-is-on t)
