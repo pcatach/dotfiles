@@ -39,16 +39,20 @@ F5 again will unset 'selective-display' by setting it to 0."
    (cl-remove-if-not 'buffer-file-name (buffer-list)))
   )
 
+(defun set-default-directory ()
+  (interactive)
+  (setq use-dialog-box nil)
+    (let ((path (read-file-name "Enter path to project directory:")))
+	  (write-region path nil "~/.emacs.d/project-directory")))
+
 (defun get-default-directory ()
   (interactive)
   (unless (file-exists-p "~/.emacs.d/project-directory")
-    (setq use-dialog-box nil)
-    (let ((path (read-file-name "Enter path to project directory:")))
-	  (write-region path nil "~/.emacs.d/project-directory")))
+    (set-default-directory))
   (with-temp-buffer
     (insert-file-contents "~/.emacs.d/project-directory")
     (buffer-string)))
-  
+
 ;; emacs customizations
 (setq default-directory (get-default-directory))
 (menu-bar-mode -1)
