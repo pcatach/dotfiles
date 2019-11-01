@@ -83,7 +83,7 @@ F5 again will unset 'selective-display' by setting it to 0."
 (load custom-file)
 (load-theme 'atom-dark t)
 ;;(set-frame-font "Inconsolata-12")
-(set-frame-font "Fira Code 8")
+(set-frame-font "Fira Code 10")
 
 ;; keybindings
 (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))
