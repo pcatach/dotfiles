@@ -82,7 +82,8 @@ F5 again will unset 'selective-display' by setting it to 0."
   (write-region "" nil custom-file))
 (load custom-file)
 (load-theme 'atom-dark t)
-(set-frame-font "Inconsolata-12")
+;;(set-frame-font "Inconsolata-12")
+(set-frame-font "Fira Code 8")
 
 ;; keybindings
 (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))
@@ -131,8 +132,8 @@ F5 again will unset 'selective-display' by setting it to 0."
 (remove-hook 'elpy-modules 'elpy-module-flymake)
 (add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'python-mode-hook 'flycheck-mode)
-(setq flycheck-mypy.ini "setup.cfg")
-(flycheck-add-next-checker 'python-flake8 'python-mypy t)
+(setq flycheck-python-mypy-ini "setup.cfg")
+(flycheck-add-next-checker 'python-pycompile 'python-mypy t)
 (add-hook 'before-save-hook 'flycheck-all-file-buffers)
 
 ;; term window
