@@ -125,6 +125,9 @@ F5 again will unset 'selective-display' by setting it to 0."
 (neotree-show)
 (setq neo-window-fixed-size nil)
 
+;; diff-hl
+(global-diff-hl-mode)
+
 ;; python mode
 (setenv "PYTHONPATH" default-directory)
 (elpy-enable)
