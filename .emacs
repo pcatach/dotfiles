@@ -133,10 +133,11 @@ F5 again will unset 'selective-display' by setting it to 0."
 (elpy-enable)
 (pyvenv-activate "env")
 (remove-hook 'elpy-modules 'elpy-module-flymake)
-(add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'python-mode-hook 'flycheck-mode)
 (setq flycheck-python-mypy-ini "setup.cfg")
-(flycheck-add-next-checker 'python-pycompile 'python-mypy t)
+(setq flycheck-flake8rc "setup.cfg")
+(flycheck-add-next-checker 'python-flake8 'python-mypy t)
+(add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'before-save-hook 'flycheck-all-file-buffers)
 
 ;; term window
