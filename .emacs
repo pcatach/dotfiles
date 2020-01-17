@@ -1,7 +1,7 @@
 (package-initialize)
 
 ;; packages
-(setq package-list '(ido flycheck-mypy neotree elpy atom-dark-theme guru-mode ace-window))
+(setq package-list '(ido neotree elpy atom-dark-theme guru-mode ace-window restart-emacs))
 (setq package-check-signature nil)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
@@ -26,10 +26,6 @@ F5 again will unset 'selective-display' by setting it to 0."
   (if (eq selective-display (1+ (current-column)))
       (set-selective-display 0)
     (set-selective-display (or level (1+ (current-column))))))
-
-(defun reload-emacs ()
-  (interactive)
-  (load-file "~/.emacs"))
 
 (defun flycheck-all-file-buffers ()
   (interactive)
@@ -82,7 +78,6 @@ F5 again will unset 'selective-display' by setting it to 0."
   (write-region "" nil custom-file))
 (load custom-file)
 (load-theme 'atom-dark t)
-;;(set-frame-font "Inconsolata-12")
 (set-frame-font "Fira Code 10")
 
 ;; keybindings
@@ -128,15 +123,14 @@ F5 again will unset 'selective-display' by setting it to 0."
 ;; diff-hl
 (global-diff-hl-mode)
 
-;; python mode
-(setenv "PYTHONPATH" default-directory)
-(elpy-enable)
+;; flycheck
+(global-flycheck-mode 1)
+
+;; python (need to install black, flake8 and mypy on the environment env)
 (pyvenv-activate "env")
-(remove-hook 'elpy-modules 'elpy-module-flymake)
-(add-hook 'python-mode-hook 'flycheck-mode)
+(setq flycheck-checkers '(python-mypy python-flake8))
 (setq flycheck-python-mypy-ini "setup.cfg")
 (setq flycheck-flake8rc "setup.cfg")
-(flycheck-add-next-checker 'python-flake8 'python-mypy t)
 (add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'before-save-hook 'flycheck-all-file-buffers)
 
