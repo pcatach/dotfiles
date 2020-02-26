@@ -39,7 +39,9 @@ F5 again will unset 'selective-display' by setting it to 0."
   (interactive)
   (setq use-dialog-box nil)
     (let ((path (read-file-name "Enter path to project directory:")))
-	  (write-region path nil "~/.emacs.d/project-directory")))
+      (write-region path nil "~/.emacs.d/project-directory"))
+    (setq default-directory (get-default-directory))
+    (restart-emacs))
 
 (defun get-default-directory ()
   (interactive)
@@ -134,14 +136,3 @@ F5 again will unset 'selective-display' by setting it to 0."
 (add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'before-save-hook 'flycheck-all-file-buffers)
 
-;; term window
-(if (not (boundp 'term-is-on))
-    (progn
-      (other-window 1)
-      (split-window-vertically (floor (* 0.75 (window-height))))
-      (other-window 1)
-      (ansi-term "/bin/bash")
-      (set-window-dedicated-p (selected-window) t)
-      (other-window 2)
-      (setq term-is-on t)
-     ))
