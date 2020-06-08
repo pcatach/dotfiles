@@ -134,5 +134,5 @@ F5 again will unset 'selective-display' by setting it to 0."
 (setq flycheck-python-mypy-ini "setup.cfg")
 (setq flycheck-flake8rc "setup.cfg")
 (add-hook 'python-mode-hook 'blacken-mode)
-(add-hook 'before-save-hook 'flycheck-all-file-buffers)
+;;(add-hook 'before-save-hook 'flycheck-all-file-buffers)
 
