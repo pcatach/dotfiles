@@ -1,7 +1,7 @@
 (package-initialize)
 
 ;; packages
-(setq package-list '(ido neotree elpy atom-dark-theme guru-mode ace-window restart-emacs))
+(setq package-list '(ido neotree elpy atom-dark-theme ace-window restart-emacs py-isort))
 (setq package-check-signature nil)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
@@ -103,13 +103,6 @@ F5 again will unset 'selective-display' by setting it to 0."
 (transient-mark-mode 1)
 (setq cua-keep-region-after-copy t)
 
-;; guru mode
-(add-hook 'prog-mode-hook 'guru-mode)
-(defun disable-guru ()
-  "Disable guru mode globally"
-  (interactive)
-  (guru-global-mode -1))
-
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -128,11 +121,8 @@ F5 again will unset 'selective-display' by setting it to 0."
 ;; flycheck
 (global-flycheck-mode 1)
 
-;; python (need to install black, flake8 and mypy on the environment env)
+;; python (need to install black, isort and mypy on the environment env)
 (pyvenv-activate "env")
-(setq flycheck-checkers '(python-mypy python-flake8))
-(setq flycheck-python-mypy-ini "setup.cfg")
-(setq flycheck-flake8rc "setup.cfg")
 (add-hook 'python-mode-hook 'blacken-mode)
+(add-hook 'before-save-hook 'py-isort-before-save)
 ;;(add-hook 'before-save-hook 'flycheck-all-file-buffers)
-
