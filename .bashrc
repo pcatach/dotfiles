@@ -127,3 +127,6 @@ if [ ! -a ~/.inputrc ]; then echo '$include /etc/inputrc' > ~/.inputrc; fi
 # Add shell-option to ~/.inputrc to enable case-insensitive tab completion
 echo 'set completion-ignore-case On' >> ~/.inputrc
 
+# set default editor to emacs
+export EDITOR="emacs -nw"
+export VISUAL="emacs -nw"

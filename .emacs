@@ -1,20 +1,19 @@
-(package-initialize)
-
-;; packages
-(setq package-list '(ido neotree elpy atom-dark-theme ace-window restart-emacs py-isort))
-(setq package-check-signature nil)
+(require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")))
+(package-initialize)
+
+;; packages
+(setq package-selected-packages
+      '(aggressive-indent imenu-list ido neotree elpy atom-dark-theme ace-window restart-emacs py-isort git-commit projectile blacken))
+
+
 (unless package-archive-contents
   (package-refresh-contents))
-
-(dolist (package package-list)
+(dolist (package package-selected-packages)
   (unless (package-installed-p package)
-    (package-install package))
-  (require package))
-(add-to-list 'load-path "~/.emacs.d/blacken/")
-(load "blacken")
+    (package-install package)))
 
 ;; custom functions
 (defun fold-code (&optional level)
@@ -63,11 +62,12 @@ F5 again will unset 'selective-display' by setting it to 0."
 (add-hook 'prog-mode-hook 'linum-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq-default cursor-type 'bar)
-(setq tooltip-use-echo-area t
-      initial-frame-alist '((fullscreen . maximized))
-      inhibit-splash-screen t
+(setq tooltip-mode nil
+      initial-frame-alist '((fullscreen . maximized)) ; maximize screen on startup
       inhibit-startup-echo-area-message t
-      confirm-nonexistent-file-or-buffer nil
+      inhibit-startup-screen t
+      initial-buffer-choice  nil
+      confirm-nonexistent-file-or-buffer nil ; don't ask for confirmation when a new file/buffer is created
       column-number-mode t
       ring-bell-function 'ignore
       read-file-name-completion-ignore-case t
@@ -106,6 +106,16 @@ F5 again will unset 'selective-display' by setting it to 0."
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; imenu-list
+(imenu-list-minor-mode)
+(setq imenu-list-auto-resize t)
+(global-set-key (kbd "C-'") #'imenu-list-smart-toggle)
+
+;; projectile
+(require 'projectile)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(projectile-mode +1)
+
 ;; ace-window
 (global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "<C-tab>") 'next-multiframe-window)
@@ -113,6 +123,7 @@ F5 again will unset 'selective-display' by setting it to 0."
 
 ;; neotree
 (neotree-show)
+(call-interactively 'other-window)
 (setq neo-window-fixed-size nil)
 
 ;; diff-hl
@@ -126,3 +137,4 @@ F5 again will unset 'selective-display' by setting it to 0."
 (add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'before-save-hook 'py-isort-before-save)
 ;;(add-hook 'before-save-hook 'flycheck-all-file-buffers)
+(put 'downcase-region 'disabled nil)
