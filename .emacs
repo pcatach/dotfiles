@@ -6,8 +6,8 @@
 
 ;; packages
 (setq package-selected-packages
-      '(aggressive-indent imenu-list ido neotree elpy atom-dark-theme ace-window restart-emacs py-isort git-commit projectile blacken))
-
+      '(ido elpy atom-dark-theme ace-window restart-emacs py-isort git-commit projectile blacken typescript-mode prettier-js sr-speedbar))
+ 
 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -51,7 +51,8 @@ F5 again will unset 'selective-display' by setting it to 0."
     (buffer-string)))
 
 ;; emacs customizations
-(setq default-directory (get-default-directory))
+(exec-path-from-shell-initialize)
+;(setq default-directory (get-default-directory))
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -106,25 +107,21 @@ F5 again will unset 'selective-display' by setting it to 0."
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; imenu-list
-(imenu-list-minor-mode)
-(setq imenu-list-auto-resize t)
-(global-set-key (kbd "C-'") #'imenu-list-smart-toggle)
-
 ;; projectile
 (require 'projectile)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (projectile-mode +1)
 
+;; sr-speedbar
+(require 'sr-speedbar)
+(setq sr-speedbar-width 4)
+(setq speedbar-show-unknown-files t)
+(sr-speedbar-open)
+
 ;; ace-window
 (global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "<C-tab>") 'next-multiframe-window)
 (global-set-key (kbd "<C-iso-lefttab>") 'previous-multiframe-window)
-
-;; neotree
-(neotree-show)
-(call-interactively 'other-window)
-(setq neo-window-fixed-size nil)
 
 ;; diff-hl
 (global-diff-hl-mode)
@@ -136,5 +133,10 @@ F5 again will unset 'selective-display' by setting it to 0."
 (pyvenv-activate "env")
 (add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'before-save-hook 'py-isort-before-save)
-;;(add-hook 'before-save-hook 'flycheck-all-file-buffers)
 (put 'downcase-region 'disabled nil)
+
+;; typescript
+(require 'prettier-js)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
