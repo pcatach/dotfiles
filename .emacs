@@ -52,7 +52,6 @@ F5 again will unset 'selective-display' by setting it to 0."
 
 ;; emacs customizations
 (exec-path-from-shell-initialize)
-;(setq default-directory (get-default-directory))
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -74,6 +73,8 @@ F5 again will unset 'selective-display' by setting it to 0."
       read-file-name-completion-ignore-case t
       mouse-wheel-scroll-amount '(0.07)
       mouse-wheel-progressive-speed nil
+      mouse-wheel-tilt-scroll t
+      mouse-wheel-flip-direction t
       backup-directory-alist `(("." . "~/.emacs.d/emacs_backups"))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -116,6 +117,7 @@ F5 again will unset 'selective-display' by setting it to 0."
 (require 'sr-speedbar)
 (setq sr-speedbar-width 4)
 (setq speedbar-show-unknown-files t)
+(setq sr-speedbar-auto-refresh nil)
 (sr-speedbar-open)
 
 ;; ace-window
@@ -129,11 +131,9 @@ F5 again will unset 'selective-display' by setting it to 0."
 ;; flycheck
 (global-flycheck-mode 1)
 
-;; python (need to install black, isort and mypy on the environment env)
-(pyvenv-activate "env")
 (add-hook 'python-mode-hook 'blacken-mode)
 (add-hook 'before-save-hook 'py-isort-before-save)
-(put 'downcase-region 'disabled nil)
+(setq blacken-line-length 140)
 
 ;; typescript
 (require 'prettier-js)
