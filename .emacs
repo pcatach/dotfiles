@@ -6,7 +6,7 @@
 
 ;; packages
 (setq package-selected-packages
-      '(ido elpy atom-dark-theme ace-window restart-emacs py-isort git-commit projectile blacken typescript-mode prettier-js sr-speedbar))
+      '(ido elpy atom-dark-theme ace-window restart-emacs diff-hl flycheck py-isort git-commit projectile blacken typescript-mode prettier-js))
  
 
 (unless package-archive-contents
@@ -51,7 +51,6 @@ F5 again will unset 'selective-display' by setting it to 0."
     (buffer-string)))
 
 ;; emacs customizations
-(exec-path-from-shell-initialize)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -61,7 +60,8 @@ F5 again will unset 'selective-display' by setting it to 0."
 (add-hook 'text-mode-hook 'linum-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 'bar
+	      indent-tabs-mode nil)
 (setq tooltip-mode nil
       initial-frame-alist '((fullscreen . maximized)) ; maximize screen on startup
       inhibit-startup-echo-area-message t
@@ -113,13 +113,6 @@ F5 again will unset 'selective-display' by setting it to 0."
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (projectile-mode +1)
 
-;; sr-speedbar
-(require 'sr-speedbar)
-(setq sr-speedbar-width 4)
-(setq speedbar-show-unknown-files t)
-(setq sr-speedbar-auto-refresh nil)
-(sr-speedbar-open)
-
 ;; ace-window
 (global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "<C-tab>") 'next-multiframe-window)
@@ -140,3 +133,7 @@ F5 again will unset 'selective-display' by setting it to 0."
 (add-hook 'web-mode-hook 'prettier-js-mode)
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'typescript-mode-hook 'prettier-js-mode)
+(setq prettier-js-width-mode 2)
+(setq js-indent-level 2)
+(setq typescript-indent-level 2)
+(put 'downcase-region 'disabled nil)
