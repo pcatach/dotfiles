@@ -128,3 +128,4 @@ if [ ! -a ~/.inputrc ]; then echo '$include /etc/inputrc' > ~/.inputrc; fi
 echo 'set completion-ignore-case On' >> ~/.inputrc
 
 export PATH=~/.npm-global/bin:$PATH
+export PAGER="less -S"
