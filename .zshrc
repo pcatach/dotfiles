@@ -53,3 +53,7 @@ typeset -U path                 # keep duplicates out of the path
 # Make alt backspace stop at non alphanumeric characters
 autoload -U select-word-style
 select-word-style bash
+
+
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
