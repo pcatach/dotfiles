@@ -11,8 +11,11 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
 }
+get_git_email() {
+    git config user.email
+}
 setopt PROMPT_SUBST
-PROMPT='%B%F{green}%n@%m%f:%F{blue}%~%f%b %F{red}$(parse_git_branch)%f%(!.#.$)%(?.. [%?]) '
+PROMPT='%B%F{green}%n@%m%f:%F{blue}%~%f%b %F{red}$(parse_git_branch)%f%F{magenta}$(get_git_email)%f %(!.#.$)%(?.. [%?]) '
 
 # History settings
 HISTFILE=~/.history-zsh

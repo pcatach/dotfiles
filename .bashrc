@@ -35,3 +35,4 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 export PAGER="less -S"
+source "$HOME/.cargo/env"
