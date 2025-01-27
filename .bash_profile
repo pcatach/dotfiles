@@ -1,3 +1,4 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-source .bashrc
+source ~/.bashrc
+. "$HOME/.cargo/env"
