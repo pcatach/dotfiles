@@ -13,6 +13,7 @@ alias grep='grep --color=auto'
 # color
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
+    xterm-ghostty) color_prompt=yes
 esac
 
 # prompt
